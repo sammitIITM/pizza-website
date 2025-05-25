@@ -1,0 +1,19 @@
+# File: .github/workflows/email-step.yml
+name: Email-Step CI
+
+# Trigger on every push (you can also add `workflow_dispatch:` 
+# if you want manual runs)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: 22f3002844@ds.study.iitm.ac.in
+        run: echo "Hello, world!"
