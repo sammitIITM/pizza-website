@@ -1,12 +1,10 @@
-# File: .github/workflows/email-step.yml
 name: Email-Step CI
 
-# Trigger on every push (you can also add `workflow_dispatch:` 
-# if you want manual runs)
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   test:
