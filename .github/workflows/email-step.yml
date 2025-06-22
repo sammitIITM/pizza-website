@@ -1,17 +1,29 @@
-name: Email-Step CI
+name: Daily Auto Commit
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    # Runs daily at 07:30 UTC
+    - cron: "30 7 * * *"
   workflow_dispatch:
 
 jobs:
-  test:
+  daily-commit:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    permissions:
+      contents: write
 
-      - name: 22f3002844@ds.study.iitm.ac.in
-        run: echo "Hello, world!"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Add timestamp file by 22f3002844@ds.study.iitm.ac.in
+        run: |
+          echo "Last run: $(date -u)" > last-updated.txt
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "22f3002844@ds.study.iitm.ac.in"
+          git config --local user.name "GitHub Action Bot"
+          git add last-updated.txt
+          git commit -m "Daily update [skip ci]" || echo "No changes to commit"
+          git push
